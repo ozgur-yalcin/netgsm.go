@@ -6,7 +6,7 @@ package main
 
 import (
 	"fmt"
-	NetGsm "./src"
+	NetGsm "./src/netgsm"
 )
 
 func main() {
