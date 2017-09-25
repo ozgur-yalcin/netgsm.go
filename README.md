@@ -1,7 +1,8 @@
 # netgsm-go
 An easy-to-use netgsm.com.tr API with golang
 
-`package main
+```go
+package main
 
 import "fmt"
 
