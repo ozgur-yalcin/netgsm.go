@@ -5,7 +5,6 @@ An easy-to-use netgsm.com.tr API with golang
 package main
 
 import (
-	"fmt"
 	NetGsm "./src/netgsm"
 )
 
@@ -15,6 +14,6 @@ func main() {
 	smsdata.MainBody.Body.No = "905555555555"
 	send := NetGsm.Sms(smsdata)
 	if send {
-		fmt.Println("ok")
+		// your code
 	}
 }
