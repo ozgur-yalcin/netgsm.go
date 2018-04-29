@@ -8,8 +8,8 @@ import (
 func init() {
 	config.SmsCompany = ""   // Firma Adı
 	config.SmsMsgHeader = "" // Mesaj başlığı
-	config.SmsUserCode = ""  // Kullanıcı Kodu
-	config.SmsPassword = ""  // Kullanıcı Şifresi
+	config.SmsUserCode = ""  // Kullanıcı Adı
+	config.SmsPassword = ""  // Şifre
 }
 
 func main() {
@@ -18,6 +18,6 @@ func main() {
 	smsdata.MainBody.Body.No = "905555555555"
 	send := netgsm.Sms(smsdata)
 	if send {
-		// your code
+		// kod
 	}
 }
