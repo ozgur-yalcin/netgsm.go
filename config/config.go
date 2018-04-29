@@ -1,9 +1,9 @@
 package config
 
-const (
+var (
 	APIURL       = "http://api.netgsm.com.tr/xmlbulkhttppost.asp"
-	SmsCompany   = "" // YOUR COMPANY
-	SmsMsgHeader = "" // YOUR MESSAGE HEADER
-	SmsUserCode  = "" // YOUR USER CODE
-	SmsPassword  = "" // YOUR PASSWORD
+	SmsCompany   = ""
+	SmsMsgHeader = ""
+	SmsUserCode  = ""
+	SmsPassword  = ""
 )

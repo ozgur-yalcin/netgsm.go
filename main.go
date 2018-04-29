@@ -1,8 +1,16 @@
 package main
 
 import (
+	"netgsm/config"
 	"netgsm/src"
 )
+
+func init() {
+	config.SmsCompany = ""   // Firma Adı
+	config.SmsMsgHeader = "" // Mesaj başlığı
+	config.SmsUserCode = ""  // Kullanıcı Kodu
+	config.SmsPassword = ""  // Kullanıcı Şifresi
+}
 
 func main() {
 	smsdata := netgsm.SmsData{}
