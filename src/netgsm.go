@@ -28,8 +28,6 @@ type SmsData struct {
 }
 
 func Sms(xmlrequest SmsData) bool {
-	apiurl := config.APIURL
-	apicharset := "text/xml; charset=utf-8"
 	loc, _ := time.LoadLocation("Europe/Istanbul")
 	xmlrequest.MainBody.Header.Company = config.SmsCompany
 	xmlrequest.MainBody.Header.MsgHeader = config.SmsMsgHeader
@@ -42,7 +40,7 @@ func Sms(xmlrequest SmsData) bool {
 	data, _ := xml.Marshal(xmlrequest)
 	repl := strings.NewReplacer("&lt;!", "<!", "]&gt;", "]>", "<xml>", "", "</xml>", "")
 	post := xml.Header + repl.Replace(string(data))
-	resp, err := http.Post(apiurl, apicharset, strings.NewReader(post))
+	resp, err := http.Post(config.APIURL, "text/xml; charset=utf-8", strings.NewReader(post))
 	if err != nil {
 		return false
 	}
