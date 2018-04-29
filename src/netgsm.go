@@ -3,15 +3,9 @@ package netgsm
 import (
 	"encoding/xml"
 	"net/http"
+	"netgsm/config"
 	"strings"
 	"time"
-)
-
-const (
-	SmsCompany   = "" // YOUR COMPANY
-	SmsMsgHeader = "" // YOUR MESSAGE HEADER
-	SmsUserCode  = "" // YOUR USER CODE
-	SmsPassword  = "" // YOUR PASSWORD
 )
 
 type SmsData struct {
@@ -34,13 +28,13 @@ type SmsData struct {
 }
 
 func Sms(xmlrequest SmsData) bool {
-	apiurl := "http://api.netgsm.com.tr/xmlbulkhttppost.asp"
+	apiurl := config.APIURL
 	apicharset := "text/xml; charset=utf-8"
 	loc, _ := time.LoadLocation("Europe/Istanbul")
-	xmlrequest.MainBody.Header.Company = SmsCompany
-	xmlrequest.MainBody.Header.MsgHeader = SmsMsgHeader
-	xmlrequest.MainBody.Header.UserCode = SmsUserCode
-	xmlrequest.MainBody.Header.Password = SmsPassword
+	xmlrequest.MainBody.Header.Company = config.SmsCompany
+	xmlrequest.MainBody.Header.MsgHeader = config.SmsMsgHeader
+	xmlrequest.MainBody.Header.UserCode = config.SmsUserCode
+	xmlrequest.MainBody.Header.Password = config.SmsPassword
 	xmlrequest.MainBody.Header.Type = "1:n"
 	xmlrequest.MainBody.Header.StartDate = time.Now().In(loc).Format("020120061504")
 	xmlrequest.MainBody.Header.StopDate = time.Now().In(loc).Add(24 * time.Hour).Format("020120061504")
