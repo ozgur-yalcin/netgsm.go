@@ -1,4 +1,4 @@
-# netgsm-go
+# netgsm
 An easy-to-use netgsm.com.tr API with golang
 
 ```go
