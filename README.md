@@ -5,14 +5,14 @@ An easy-to-use netgsm.com.tr API with golang
 package main
 
 import (
-	NetGsm "./src/netgsm"
+	"netgsm/src"
 )
 
 func main() {
-	smsdata := NetGsm.SmsData{}
+	smsdata := netgsm.SmsData{}
 	smsdata.MainBody.Body.Msg = "test"
 	smsdata.MainBody.Body.No = "905555555555"
-	send := NetGsm.Sms(smsdata)
+	send := netgsm.Sms(smsdata)
 	if send {
 		// your code
 	}
