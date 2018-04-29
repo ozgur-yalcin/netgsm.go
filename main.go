@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"netgsm/config"
 	"netgsm/src"
 )
@@ -18,6 +19,8 @@ func main() {
 	smsdata.MainBody.Body.No = "905555555555"
 	send := netgsm.Sms(smsdata)
 	if send {
-		// kod
+		fmt.Println("mesaj iletildi")
+	} else {
+		fmt.Println("hata oluştu")
 	}
 }
