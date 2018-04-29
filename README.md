@@ -5,8 +5,16 @@ An easy-to-use netgsm.com.tr API with golang
 package main
 
 import (
+	"netgsm/config"
 	"netgsm/src"
 )
+
+func init() {
+	config.SmsCompany = ""   // Firma Adı
+	config.SmsMsgHeader = "" // Mesaj başlığı
+	config.SmsUserCode = ""  // Kullanıcı Adı
+	config.SmsPassword = ""  // Şifre
+}
 
 func main() {
 	smsdata := netgsm.SmsData{}
@@ -14,6 +22,7 @@ func main() {
 	smsdata.MainBody.Body.No = "905555555555"
 	send := netgsm.Sms(smsdata)
 	if send {
-		// your code
+		// kod
 	}
 }
+```
