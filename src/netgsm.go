@@ -37,10 +37,9 @@ func Sms(xmlrequest SmsData) bool {
 	xmlrequest.MainBody.Header.StartDate = time.Now().In(loc).Format("020120061504")
 	xmlrequest.MainBody.Header.StopDate = time.Now().In(loc).Add(24 * time.Hour).Format("020120061504")
 	xmlrequest.MainBody.Body.Msg = "<![CDATA[" + xmlrequest.MainBody.Body.Msg + " - ]]>"
-	data, _ := xml.Marshal(xmlrequest)
+	postdata, _ := xml.Marshal(xmlrequest)
 	repl := strings.NewReplacer("&lt;!", "<!", "]&gt;", "]>", "<xml>", "", "</xml>", "")
-	post := xml.Header + repl.Replace(string(data))
-	resp, err := http.Post(config.APIURL, "text/xml; charset=utf-8", strings.NewReader(post))
+	resp, err := http.Post(config.APIURL, "text/xml; charset=utf-8", strings.NewReader(xml.Header+repl.Replace(string(postdata))))
 	if err != nil {
 		return false
 	}
