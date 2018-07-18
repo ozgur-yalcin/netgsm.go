@@ -14,7 +14,9 @@ func init() {
 }
 
 func main() {
-	smsdata := netgsm.SmsData{}
+	smsdata := new(netgsm.SmsData)
+	smsdata.Lock()
+	defer smsdata.Lock()
 	smsdata.MainBody.Body.Msg = "test"
 	smsdata.MainBody.Body.No = "905555555555"
 	send := netgsm.Sms(smsdata)

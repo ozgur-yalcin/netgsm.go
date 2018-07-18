@@ -5,10 +5,12 @@ import (
 	"net/http"
 	"netgsm/config"
 	"strings"
+	"sync"
 	"time"
 )
 
 type SmsData struct {
+	sync.Mutex
 	XMLName  xml.Name `xml:"xml,omitempty"`
 	MainBody struct {
 		Header struct {
@@ -27,7 +29,7 @@ type SmsData struct {
 	} `xml:"mainbody,omitempty"`
 }
 
-func Sms(xmlrequest SmsData) bool {
+func Sms(xmlrequest *SmsData) bool {
 	loc, _ := time.LoadLocation("Europe/Istanbul")
 	xmlrequest.MainBody.Header.Company = config.SmsCompany
 	xmlrequest.MainBody.Header.MsgHeader = config.SmsMsgHeader
@@ -38,11 +40,11 @@ func Sms(xmlrequest SmsData) bool {
 	xmlrequest.MainBody.Header.StopDate = time.Now().In(loc).Add(24 * time.Hour).Format("020120061504")
 	xmlrequest.MainBody.Body.Msg = "<![CDATA[" + xmlrequest.MainBody.Body.Msg + " - ]]>"
 	postdata, _ := xml.Marshal(xmlrequest)
-	repl := strings.NewReplacer("&lt;!", "<!", "]&gt;", "]>", "<xml>", "", "</xml>", "")
-	resp, err := http.Post(config.APIURL, "text/xml; charset=utf-8", strings.NewReader(xml.Header+repl.Replace(string(postdata))))
+	rpl := strings.NewReplacer("&lt;!", "<!", "]&gt;", "]>", "<xml>", "", "</xml>", "")
+	res, err := http.Post(config.APIURL, "text/xml; charset=utf-8", strings.NewReader(xml.Header+rpl.Replace(string(postdata))))
 	if err != nil {
 		return false
 	}
-	defer resp.Body.Close()
+	defer res.Body.Close()
 	return true
 }

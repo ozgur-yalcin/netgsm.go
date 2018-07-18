@@ -1,5 +1,12 @@
-# netgsm
+# Netgsm
 An easy-to-use netgsm.com.tr API with golang
+
+# Security
+If you discover any security related issues, please email ozguryalcin@outlook.com instead of using the issue tracker.
+
+# License
+The MIT License (MIT). Please see License File for more information.
+
 
 ```go
 package main
@@ -18,7 +25,9 @@ func init() {
 }
 
 func main() {
-	smsdata := netgsm.SmsData{}
+	smsdata := new(netgsm.SmsData)
+	smsdata.Lock()
+	defer smsdata.Lock()
 	smsdata.MainBody.Body.Msg = "test"
 	smsdata.MainBody.Body.No = "905555555555"
 	send := netgsm.Sms(smsdata)
@@ -29,9 +38,3 @@ func main() {
 	}
 }
 ```
-
-# Security
-If you discover any security related issues, please email ozguryalcin@outlook.com instead of using the issue tracker.
-
-# License
-The MIT License (MIT). Please see License File for more information.
