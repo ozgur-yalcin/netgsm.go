@@ -1,7 +1,7 @@
 package config
 
 var (
-	APIURL       = "http://api.netgsm.com.tr/xmlbulkhttppost.asp"
+	APIURL       = "https://api.netgsm.com.tr/sms/send/xml"
 	SmsCompany   = ""
 	SmsMsgHeader = ""
 	SmsUserCode  = ""

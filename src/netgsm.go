@@ -29,17 +29,17 @@ type SmsData struct {
 	} `xml:"mainbody,omitempty"`
 }
 
-func Sms(xmlrequest *SmsData) bool {
+func Sms(request *SmsData) bool {
 	loc, _ := time.LoadLocation("Europe/Istanbul")
-	xmlrequest.MainBody.Header.Company = config.SmsCompany
-	xmlrequest.MainBody.Header.MsgHeader = config.SmsMsgHeader
-	xmlrequest.MainBody.Header.UserCode = config.SmsUserCode
-	xmlrequest.MainBody.Header.Password = config.SmsPassword
-	xmlrequest.MainBody.Header.Type = "1:n"
-	xmlrequest.MainBody.Header.StartDate = time.Now().In(loc).Format("020120061504")
-	xmlrequest.MainBody.Header.StopDate = time.Now().In(loc).Add(24 * time.Hour).Format("020120061504")
-	xmlrequest.MainBody.Body.Msg = "<![CDATA[" + xmlrequest.MainBody.Body.Msg + " - ]]>"
-	postdata, _ := xml.Marshal(xmlrequest)
+	request.MainBody.Header.Company = config.SmsCompany
+	request.MainBody.Header.MsgHeader = config.SmsMsgHeader
+	request.MainBody.Header.UserCode = config.SmsUserCode
+	request.MainBody.Header.Password = config.SmsPassword
+	request.MainBody.Header.Type = "1:n"
+	request.MainBody.Header.StartDate = time.Now().In(loc).Format("020120061504")
+	request.MainBody.Header.StopDate = time.Now().In(loc).Add(24 * time.Hour).Format("020120061504")
+	request.MainBody.Body.Msg = "<![CDATA[" + request.MainBody.Body.Msg + " - ]]>"
+	postdata, _ := xml.Marshal(request)
 	rpl := strings.NewReplacer("&lt;!", "<!", "]&gt;", "]>", "<xml>", "", "</xml>", "")
 	res, err := http.Post(config.APIURL, "text/xml; charset=utf-8", strings.NewReader(xml.Header+rpl.Replace(string(postdata))))
 	if err != nil {
