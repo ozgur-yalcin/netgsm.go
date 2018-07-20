@@ -9,8 +9,11 @@ import (
 	"time"
 )
 
-type SmsData struct {
+type API struct {
 	sync.Mutex
+}
+
+type Request struct {
 	XMLName  xml.Name `xml:"xml,omitempty"`
 	MainBody struct {
 		Header struct {
@@ -29,7 +32,7 @@ type SmsData struct {
 	} `xml:"mainbody,omitempty"`
 }
 
-func Sms(request *SmsData) bool {
+func (api *API) Sms(request *Request) bool {
 	loc, _ := time.LoadLocation("Europe/Istanbul")
 	request.MainBody.Header.Company = config.SmsCompany
 	request.MainBody.Header.MsgHeader = config.SmsMsgHeader
