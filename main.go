@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	config.SmsCompany = ""   // Firma Adı
+	config.SmsCompany = "NETGSM"
 	config.SmsMsgHeader = "" // Mesaj başlığı
 	config.SmsUserCode = ""  // Kullanıcı Adı
 	config.SmsPassword = ""  // Şifre
