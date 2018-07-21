@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"netgsm/config"
-	"netgsm/src"
+
+	"github.com/OzqurYalcin/netgsm/config"
+	"github.com/OzqurYalcin/netgsm/src"
 )
 
 func init() {

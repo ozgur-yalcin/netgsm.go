@@ -7,14 +7,20 @@ If you discover any security related issues, please email ozguryalcin@outlook.co
 # License
 The MIT License (MIT). Please see License File for more information.
 
+# Installation
+```bash
+go get github.com/OzqurYalcin/netgsm
+```
 
+# Usage
 ```go
 package main
 
 import (
 	"fmt"
-	"netgsm/config"
-	"netgsm/src"
+
+	"github.com/OzqurYalcin/netgsm/config"
+	"github.com/OzqurYalcin/netgsm/src"
 )
 
 func init() {

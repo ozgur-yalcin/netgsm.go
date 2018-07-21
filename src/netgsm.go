@@ -3,10 +3,11 @@ package netgsm
 import (
 	"encoding/xml"
 	"net/http"
-	"netgsm/config"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/OzqurYalcin/netgsm/config"
 )
 
 type API struct {
