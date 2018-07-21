@@ -25,7 +25,7 @@ import (
 
 func init() {
 	config.SmsCompany = "NETGSM"
-	config.SmsMsgHeader = "" // Mesaj başlığı
+	config.SmsMsgHeader = "" // Başlık
 	config.SmsUserCode = ""  // Kullanıcı Adı
 	config.SmsPassword = ""  // Şifre
 }
