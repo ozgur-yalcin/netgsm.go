@@ -45,7 +45,7 @@ func (api *API) Sms(request *Request) bool {
 	request.MainBody.Body.Msg = "<![CDATA[" + request.MainBody.Body.Msg + " - ]]>"
 	postdata, _ := xml.Marshal(request)
 	rpl := strings.NewReplacer("&lt;!", "<!", "]&gt;", "]>", "<xml>", "", "</xml>", "")
-	res, err := http.Post(config.APIURL, "text/xml; charset=utf-8", strings.NewReader(xml.Header+rpl.Replace(string(postdata))))
+	res, err := http.Post(config.ApiUrl, "text/xml; charset=utf-8", strings.NewReader(xml.Header+rpl.Replace(string(postdata))))
 	if err != nil {
 		return false
 	}
