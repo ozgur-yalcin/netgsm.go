@@ -1,3 +1,5 @@
+[![Linux Build Status](https://travis-ci.org/OzqurYalcin/netgsm.svg?branch=master)](https://travis-ci.org/OzqurYalcin/netgsm) [![Windows Build Status](https://ci.appveyor.com/api/projects/status/sm4un9iwhqg9sdna?svg=true)](https://ci.appveyor.com/project/OzqurYalcin/netgsm) [![Build Status](https://circleci.com/gh/OzqurYalcin/netgsm.svg?style=svg)](https://circleci.com/gh/OzqurYalcin/netgsm)
+
 # Netgsm
 An easy-to-use netgsm.com.tr API with golang
 
