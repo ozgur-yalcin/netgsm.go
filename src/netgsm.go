@@ -34,7 +34,10 @@ type Request struct {
 }
 
 func (api *API) Sms(request *Request) bool {
-	loc, _ := time.LoadLocation("Europe/Istanbul")
+	loc, err := time.LoadLocation("Europe/Istanbul")
+	if err != nil {
+		return false
+	}
 	request.MainBody.Header.Company = config.SmsCompany
 	request.MainBody.Header.MsgHeader = config.SmsMsgHeader
 	request.MainBody.Header.UserCode = config.SmsUserCode
@@ -43,7 +46,10 @@ func (api *API) Sms(request *Request) bool {
 	request.MainBody.Header.StartDate = time.Now().In(loc).Format("020120061504")
 	request.MainBody.Header.StopDate = time.Now().In(loc).Add(24 * time.Hour).Format("020120061504")
 	request.MainBody.Body.Msg = "<![CDATA[" + request.MainBody.Body.Msg + " - ]]>"
-	postdata, _ := xml.Marshal(request)
+	postdata, err := xml.Marshal(request)
+	if err != nil {
+		return false
+	}
 	rpl := strings.NewReplacer("&lt;!", "<!", "]&gt;", "]>", "<xml>", "", "</xml>", "")
 	res, err := http.Post(config.ApiUrl, "text/xml; charset=utf-8", strings.NewReader(xml.Header+rpl.Replace(string(postdata))))
 	if err != nil {
