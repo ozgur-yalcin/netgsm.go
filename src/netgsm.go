@@ -4,14 +4,19 @@ import (
 	"encoding/xml"
 	"net/http"
 	"strings"
-	"sync"
 	"time"
-
-	"github.com/OzqurYalcin/netgsm/config"
 )
 
+type Config struct {
+	ApiUrl       string
+	SmsCompany   string
+	SmsMsgHeader string
+	SmsUserCode  string
+	SmsPassword  string
+}
+
 type API struct {
-	sync.Mutex
+	Config Config
 }
 
 type Request struct {
@@ -38,10 +43,10 @@ func (api *API) Sms(request *Request) bool {
 	if err != nil {
 		return false
 	}
-	request.MainBody.Header.Company = config.SmsCompany
-	request.MainBody.Header.MsgHeader = config.SmsMsgHeader
-	request.MainBody.Header.UserCode = config.SmsUserCode
-	request.MainBody.Header.Password = config.SmsPassword
+	request.MainBody.Header.Company = api.Config.SmsCompany
+	request.MainBody.Header.MsgHeader = api.Config.SmsMsgHeader
+	request.MainBody.Header.UserCode = api.Config.SmsUserCode
+	request.MainBody.Header.Password = api.Config.SmsPassword
 	request.MainBody.Header.Type = "1:n"
 	request.MainBody.Header.StartDate = time.Now().In(loc).Format("020120061504")
 	request.MainBody.Header.StopDate = time.Now().In(loc).Add(24 * time.Hour).Format("020120061504")
@@ -51,7 +56,7 @@ func (api *API) Sms(request *Request) bool {
 		return false
 	}
 	rpl := strings.NewReplacer("&lt;!", "<!", "]&gt;", "]>", "<xml>", "", "</xml>", "")
-	res, err := http.Post(config.ApiUrl, "text/xml; charset=utf-8", strings.NewReader(xml.Header+rpl.Replace(string(postdata))))
+	res, err := http.Post(api.Config.ApiUrl, "text/xml; charset=utf-8", strings.NewReader(xml.Header+rpl.Replace(string(postdata))))
 	if err != nil {
 		return false
 	}

@@ -3,22 +3,13 @@ package main
 import (
 	"fmt"
 
-	"github.com/OzqurYalcin/netgsm/config"
-	"github.com/OzqurYalcin/netgsm/src"
+	netgsm "github.com/OzqurYalcin/netgsm/src"
 )
 
-func init() {
-	config.SmsCompany = "NETGSM"
-	config.SmsMsgHeader = "" // Başlık
-	config.SmsUserCode = ""  // Kullanıcı Adı
-	config.SmsPassword = ""  // Şifre
-}
-
 func main() {
-	api := new(netgsm.API)
-	api.Lock()
-	defer api.Unlock()
-	request := new(netgsm.Request)
+	config := netgsm.Config{SmsCompany: "NETGSM", SmsMsgHeader: "", SmsUserCode: "", SmsPassword: "", ApiUrl: "https://api.netgsm.com.tr/sms/send/xml"}
+	api := &netgsm.API{config}
+	request := &netgsm.Request{}
 	request.MainBody.Body.Msg = "test"
 	request.MainBody.Body.No = "905555555555"
 	send := api.Sms(request)
