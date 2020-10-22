@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/OzqurYalcin/netgsm.svg?branch=master)](https://travis-ci.org/OzqurYalcin/netgsm) [![Build Status](https://circleci.com/gh/OzqurYalcin/netgsm.svg?style=svg)](https://circleci.com/gh/OzqurYalcin/netgsm) [![license](https://img.shields.io/:license-mit-blue.svg)](https://github.com/OzqurYalcin/netgsm/blob/master/LICENSE.md)
+[![license](https://img.shields.io/:license-mit-blue.svg)](https://github.com/OzqurYalcin/netgsm/blob/master/LICENSE.md)
+[![documentation](https://pkg.go.dev/badge/github.com/OzqurYalcin/netgsm)](https://pkg.go.dev/github.com/OzqurYalcin/netgsm/src)
 
 # Netgsm
 An easy-to-use netgsm.com.tr API with golang
