@@ -38,7 +38,7 @@ type Request struct {
 	} `xml:"mainbody,omitempty"`
 }
 
-func (api *API) Sms(request *Request) bool {
+func (api API) Sms(request Request) bool {
 	loc, err := time.LoadLocation("Europe/Istanbul")
 	if err != nil {
 		return false
