@@ -4,7 +4,6 @@ import (
 	"encoding/xml"
 	"net/http"
 	"strings"
-	"time"
 )
 
 type Config struct {
@@ -39,17 +38,11 @@ type Request struct {
 }
 
 func (api *API) Sms(request Request) bool {
-	loc, err := time.LoadLocation("Europe/Istanbul")
-	if err != nil {
-		return false
-	}
 	request.MainBody.Header.Company = api.Config.SmsCompany
 	request.MainBody.Header.MsgHeader = api.Config.SmsMsgHeader
 	request.MainBody.Header.UserCode = api.Config.SmsUserCode
 	request.MainBody.Header.Password = api.Config.SmsPassword
 	request.MainBody.Header.Type = "1:n"
-	request.MainBody.Header.StartDate = time.Now().In(loc).Format("020120061504")
-	request.MainBody.Header.StopDate = time.Now().In(loc).Add(24 * time.Hour).Format("020120061504")
 	request.MainBody.Body.Msg = "<![CDATA[" + request.MainBody.Body.Msg + " - ]]>"
 	postdata, err := xml.Marshal(request)
 	if err != nil {
