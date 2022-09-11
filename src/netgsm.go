@@ -2,6 +2,7 @@ package netgsm
 
 import (
 	"encoding/xml"
+	"html"
 	"net/http"
 	"strings"
 )
@@ -37,7 +38,17 @@ type Request struct {
 	} `xml:"mainbody,omitempty"`
 }
 
-func (api *API) Sms(request Request) bool {
+type Response struct {
+	XMLName xml.Name `xml:"xml,omitempty"`
+	XML     struct {
+		Main struct {
+			Code  string `xml:"code,omitempty"`
+			JobID string `xml:"jobID,omitempty"`
+		} `xml:"main,omitempty"`
+	} `xml:"xml,omitempty"`
+}
+
+func (api *API) Sms(request Request) (res Response) {
 	request.MainBody.Header.Company = api.Config.SmsCompany
 	request.MainBody.Header.MsgHeader = api.Config.SmsMsgHeader
 	request.MainBody.Header.UserCode = api.Config.SmsUserCode
@@ -46,13 +57,14 @@ func (api *API) Sms(request Request) bool {
 	request.MainBody.Body.Msg = "<![CDATA[" + request.MainBody.Body.Msg + " - ]]>"
 	postdata, err := xml.Marshal(request)
 	if err != nil {
-		return false
+		return res
 	}
-	rpl := strings.NewReplacer("&lt;!", "<!", "]&gt;", "]>", "<xml>", "", "</xml>", "")
-	res, err := http.Post(api.Config.ApiUrl, "text/xml; charset=utf-8", strings.NewReader(xml.Header+rpl.Replace(string(postdata))))
+	response, err := http.Post(api.Config.ApiUrl, "text/xml; charset=utf-8", strings.NewReader(xml.Header+html.UnescapeString(string(postdata))))
 	if err != nil {
-		return false
+		return res
 	}
-	defer res.Body.Close()
-	return true
+	defer response.Body.Close()
+	decoder := xml.NewDecoder(response.Body)
+	decoder.Decode(&res)
+	return res
 }
