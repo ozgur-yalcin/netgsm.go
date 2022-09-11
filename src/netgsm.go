@@ -3,7 +3,9 @@ package netgsm
 import (
 	"encoding/xml"
 	"html"
+	"io/ioutil"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -49,18 +51,31 @@ func Api(header, usercode, password string) (*API, *Request) {
 	return api, request
 }
 
-func (api *API) Sms(request *Request) bool {
+func (api *API) Sms(request *Request) (res Response) {
 	request.Body.Msg = "<![CDATA[" + request.Body.Msg + " - ]]>"
 	postdata, err := xml.Marshal(request)
 	if err != nil {
-		return false
+		return res
 	}
 	response, err := http.Post(api.Endpoint+"/sms/send/xml", "text/xml", strings.NewReader(xml.Header+html.UnescapeString(string(postdata))))
 	if err != nil {
-		return false
+		return res
 	}
 	defer response.Body.Close()
-	return true
+	result, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		return res
+	}
+	parse := strings.Split(string(result), " ")
+	if len(parse) == 2 {
+		if code, err := strconv.Atoi(parse[0]); err == nil {
+			res.Main.Code = strconv.Itoa(code)
+			res.Main.JobID = parse[1]
+		}
+	} else if code, err := strconv.Atoi(string(result)); err == nil {
+		res.Main.Code = strconv.Itoa(code)
+	}
+	return res
 }
 
 func (api *API) Otp(request *Request) (res Response) {
