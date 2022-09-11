@@ -24,7 +24,8 @@ func main() {
 	api, req := netgsm.Api("header", "username", "password")
 	req.Body.Msg = "test"
 	req.Body.No = "905555555555"
-	res := api.Otp(req)
+	res := api.Sms(req) // Normal sms
+	// res := api.Otp(req) // Hızlı sms
 	pretty, _ := xml.MarshalIndent(res, " ", " ")
 	fmt.Println(string(pretty))
 }
