@@ -1,3 +1,3 @@
-module github.com/ozgur-soft/netgsm.go
+module github.com/ozgur-yalcin/netgsm.go
 
 go 1.17
