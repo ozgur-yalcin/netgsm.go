@@ -1,12 +1,12 @@
-[![license](https://img.shields.io/:license-mit-blue.svg)](https://github.com/ozgur-soft/netgsm.go/blob/master/LICENSE.md)
-[![documentation](https://pkg.go.dev/badge/github.com/ozgur-soft/netgsm.go)](https://pkg.go.dev/github.com/ozgur-soft/netgsm.go/src)
+[![license](https://img.shields.io/:license-mit-blue.svg)](https://github.com/ozgur-yalcin/netgsm.go/blob/master/LICENSE.md)
+[![documentation](https://pkg.go.dev/badge/github.com/ozgur-yalcin/netgsm.go)](https://pkg.go.dev/github.com/ozgur-yalcin/netgsm.go/src)
 
 # Netgsm.go
 An easy-to-use netgsm.com.tr API with golang
 
 # Installation
 ```bash
-go get github.com/ozgur-soft/netgsm.go
+go get github.com/ozgur-yalcin/netgsm.go
 ```
 
 # Usage
@@ -17,7 +17,7 @@ import (
 	"encoding/xml"
 	"fmt"
 
-	netgsm "github.com/ozgur-soft/netgsm.go/src"
+	netgsm "github.com/ozgur-yalcin/netgsm.go/src"
 )
 
 func main() {
